@@ -1,0 +1,5 @@
+https://spacelift.io/blog/terraform-tfvars
+
+email_address = "your.email+saac03@gmail.com"
+access_key = "ACCESS_KEY"
+secret_key = "SECRET_KEY"
