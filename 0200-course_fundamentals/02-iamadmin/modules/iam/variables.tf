@@ -1,31 +1,50 @@
-##########################################################
+# IAM Variables
 
-# AWS or Authentication/Access Variables
-
-variable "region" {
+variable "iam_username" {
   type = string
-  description = "Which AWS region to deploy to"
-  default = "us-east-1"
+  description = "The user's name. The name must consist of upper and lowercase alphanumeric characters with no spaces."
+  default = "iamadmin"
+  
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9+=,.@_-]+$", var.iam_username))
+    error_message = "IAM username must contain only alphanumeric characters and `+=,.@_-`."
+  }
 }
 
-variable "access_key" {
+variable "iam_path" {
   type = string
-  description = "Access key for the AWS account to use"
+  description = "Path in which to create the user."
+  default = "/"
 }
 
-variable "secret_key" {
-  type = string
-  description = "Secret key for the AWS account to use"
+variable "policy_arn" {
+  type        = string
+  description = "ARN of the IAM policy to attach to the user"
+  default     = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
-##########################################################
-
-# VPC Variables
-
-variable "cidr_block" {
-  type = string
-  description = "The IPv4 CIDR block for the VPC. CIDR can be explicitly set or it can be derived from IPAM using ipv4_netmask_length."
-  default = "10.0.0.0/16"
+variable "password_reset_required" {
+  type        = bool
+  description = "Whether the user should be forced to reset their password on first login"
+  default     = false
 }
 
-##########################################################
+variable "password_length" {
+  type        = number
+  description = "Length of the generated password"
+  default     = 8
+  
+  validation {
+    condition     = var.password_length >= 8 && var.password_length <= 128
+    error_message = "Password length must be between 8 and 128 characters."
+  }
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "Tags to apply to the IAM user"
+  default = {
+    ManagedBy = "terraform"
+    Project   = "saac03-course"
+  }
+}

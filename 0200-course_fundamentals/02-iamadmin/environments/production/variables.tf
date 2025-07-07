@@ -20,12 +20,46 @@ variable "secret_key" {
 
 ##########################################################
 
-# VPC Variables
+# IAM Variables
 
-variable "cidr_block" {
+variable "iam_username" {
   type = string
-  description = "The IPv4 CIDR block for the VPC. CIDR can be explicitly set or it can be derived from IPAM using ipv4_netmask_length."
-  default = "10.0.0.0/16"
+  description = "The user's name. The name must consist of upper and lowercase alphanumeric characters with no spaces."
+  default = "iamadmin"
+}
+
+variable "iam_path" {
+  type = string
+  description = "Path in which to create the user."
+  default = "/"
+}
+
+variable "policy_arn" {
+  type        = string
+  description = "ARN of the IAM policy to attach to the user"
+  default     = "arn:aws:iam::aws:policy/AdministratorAccess"
+}
+
+variable "password_reset_required" {
+  type        = bool
+  description = "Whether the user should be forced to reset their password on first login"
+  default     = false
+}
+
+variable "password_length" {
+  type        = number
+  description = "Length of the generated password"
+  default     = 8
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "Tags to apply to the IAM user"
+  default = {
+    Environment = "production"
+    ManagedBy   = "terraform"
+    Project     = "saac03-course"
+  }
 }
 
 ##########################################################
