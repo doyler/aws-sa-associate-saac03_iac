@@ -1,25 +1,5 @@
 ##########################################################
 
-# AWS or Authentication/Access Variables
-
-variable "region" {
-  type = string
-  description = "Which AWS region to deploy to"
-  default = "us-east-1"
-}
-
-variable "access_key" {
-  type = string
-  description = "Access key for the AWS account to use"
-}
-
-variable "secret_key" {
-  type = string
-  description = "Secret key for the AWS account to use"
-}
-
-##########################################################
-
 # Budget Variables
 
 variable "budget_name" {
