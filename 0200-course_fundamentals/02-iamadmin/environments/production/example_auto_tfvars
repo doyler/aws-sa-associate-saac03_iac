@@ -1,6 +1,15 @@
-https://spacelift.io/blog/terraform-tfvars
+# https://spacelift.io/blog/terraform-tfvars
 
 access_key = "ACCESS_KEY"
 secret_key = "SECRET_KEY"
 
-cidr_block = "10.0.0.0/16"
+iam_username = "iamadmin"
+iam_path = "/"
+policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+password_reset_required = false
+password_length = "8"
+tags = {
+    Environment = "production"
+    ManagedBy   = "terraform"
+    Project     = "saac03-course"
+}
